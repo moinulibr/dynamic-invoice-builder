@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Invoice Builder</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            display: flex;
+            height: 100vh;
+        }
+
+        .form-section,
+        .preview-section {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+        }
+
+        .form-section {
+            background: #f8f9fa;
+            border-right: 1px solid #ddd;
+        }
+
+        .preview-section {
+            background: #fff;
+        }
+
+        .invoice-preview {
+            border: 1px solid #ddd;
+            padding: 20px;
+            max-width: 600px;
+            margin: auto;
+        }
+
+        h2 {
+            margin-top: 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        table,
+        th,
+        td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background: #f1f1f1;
+        }
+
+        .total {
+            text-align: right;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <!-- Left: Form -->
+        <div class="form-section">
+            <h2>Invoice Builder</h2>
+            <label>Invoice Number:<br>
+                <input type="text" id="invoiceNumber" value="INV-001">
+            </label><br><br>
+            <label>Customer Name:<br>
+                <input type="text" id="customerName" value="John Doe">
+            </label><br><br>
+            <label>Item Description:<br>
+                <input type="text" id="itemDesc" value="Product A">
+            </label><br><br>
+            <label>Quantity:<br>
+                <input type="number" id="quantity" value="1">
+            </label><br><br>
+            <label>Price:<br>
+                <input type="number" id="price" value="100">
+            </label><br><br>
+            <button onclick="addItem()">Add Item</button>
+            <hr>
+            <button onclick="clearInvoice()">Clear Invoice</button>
+        </div>
+
+        <!-- Right: Preview -->
+        <div class="preview-section">
+            <h2>Preview</h2>
+            <div class="invoice-preview" id="invoicePreview">
+                <h3>Invoice</h3>
+                <p><strong>Invoice No:</strong> <span id="prevInvoiceNumber">INV-001</span></p>
+                <p><strong>Customer:</strong> <span id="prevCustomerName">John Doe</span></p>
+                <table id="itemsTable">
+                    <thead>
+                        <tr>
+                            <th>Description</th>
+                            <th>Qty</th>
+                            <th>Price</th>
+                            <th>Total</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+                <p class="total">Grand Total: <span id="grandTotal">0</span></p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const invoiceNumber = document.getElementById('invoiceNumber');
+        const customerName = document.getElementById('customerName');
+        const itemDesc = document.getElementById('itemDesc');
+        const quantity = document.getElementById('quantity');
+        const price = document.getElementById('price');
+        const prevInvoiceNumber = document.getElementById('prevInvoiceNumber');
+        const prevCustomerName = document.getElementById('prevCustomerName');
+        const itemsTableBody = document.querySelector('#itemsTable tbody');
+        const grandTotal = document.getElementById('grandTotal');
+
+        let items = [];
+
+        // Update preview when invoice no or customer name changes
+        invoiceNumber.addEventListener('input', () => {
+            prevInvoiceNumber.textContent = invoiceNumber.value;
+        });
+
+        customerName.addEventListener('input', () => {
+            prevCustomerName.textContent = customerName.value;
+        });
+
+        function addItem() {
+            const item = {
+                desc: itemDesc.value,
+                qty: parseInt(quantity.value) || 0,
+                price: parseFloat(price.value) || 0,
+            };
+            item.total = item.qty * item.price;
+            items.push(item);
+            renderItems();
+        }
+
+        function renderItems() {
+            itemsTableBody.innerHTML = '';
+            let total = 0;
+            items.forEach(item => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+        <td>${item.desc}</td>
+        <td>${item.qty}</td>
+        <td>${item.price}</td>
+        <td>${item.total}</td>
+      `;
+                itemsTableBody.appendChild(row);
+                total += item.total;
+            });
+            grandTotal.textContent = total;
+        }
+
+        function clearInvoice() {
+            items = [];
+            renderItems();
+            invoiceNumber.value = 'INV-001';
+            customerName.value = 'John Doe';
+            prevInvoiceNumber.textContent = 'INV-001';
+            prevCustomerName.textContent = 'John Doe';
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Invoice Print</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+
+        .wrapper {
+            max-width: 900px;
+            margin: auto;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrapper">
+        <h2>Invoice Preview</h2>
+        <div id="invoiceArea" style="border:1px solid #ccc; padding:20px; background:white;"></div>
+    </div>
+
+    <script>
+        async function loadInvoice(id) {
+            try {
+                const res = await fetch(`http://127.0.0.1:8000/api/templates/${id}`);
+
+                if (!res.ok) {
+                    throw new Error("HTTP Error: " + res.status);
+                }
+
+                // Debug - check raw response
+                const data = await res.json();
+                console.log("API Response:", data);
+
+                // এখানে template_json field আছে
+                const html = data.template_json;
+
+                // Render into page
+                document.getElementById('invoiceArea').innerHTML = html;
+
+            } catch (err) {
+                console.error("Error loading invoice:", err);
+                document.getElementById('invoiceArea').innerHTML =
+                    "<p style='color:red'>Error loading invoice. Check console log.</p>";
+            }
+        }
+
+        // Example: load template ID 1
+        loadInvoice(1);
+    </script>
+</body>
+
+</html>
