@@ -3,6 +3,98 @@
 
 <head>
     <meta charset="UTF-8">
+    <title>Invoice Builder</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .palette,
+        .invoice {
+            width: 45%;
+            min-height: 300px;
+            border: 2px dashed #ccc;
+            padding: 15px;
+            border-radius: 8px;
+            background: #fafafa;
+        }
+
+        .palette h3,
+        .invoice h3 {
+            margin-top: 0;
+        }
+
+        .item {
+            padding: 10px;
+            margin: 5px 0;
+            background: #e3e3ff;
+            border: 1px solid #aaa;
+            border-radius: 5px;
+            cursor: grab;
+        }
+
+        .invoice table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .invoice th,
+        .invoice td {
+            border: 1px solid #999;
+            padding: 8px;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Item Palette -->
+    <div class="palette">
+        <h3>Item Palette</h3>
+        <div class="item" draggable="true" data-name="Product A" data-price="100">Product A - $100</div>
+        <div class="item" draggable="true" data-name="Product B" data-price="200">Product B - $200</div>
+        <div class="item" draggable="true" data-name="Service C" data-price="150">Service C - $150</div>
+    </div>
+
+    <!-- Invoice Builder -->
+    <div class="invoice">
+        <h3>Invoice</h3>
+        <table id="invoice-table">
+            <thead>
+                <tr>
+                    <th>Item</th>
+                    <th>Price</th>
+                    <th>Qty</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody id="invoice-body">
+                <!-- Items will be dropped here -->
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="3"><strong>Grand Total</strong></td>
+                    <td id="grand-total">0</td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+
+    <script src="invoice.js"></script>
+</body>
+
+</html>
+
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Invoice Builder</title>
     <style>
@@ -101,4 +193,4 @@
     </script>
 </body>
 
-</html>
+</html> -->
