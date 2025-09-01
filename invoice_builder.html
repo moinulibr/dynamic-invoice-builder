@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invoice Builder</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .components,
+        .invoice {
+            border: 2px dashed #ccc;
+            border-radius: 8px;
+            padding: 15px;
+            width: 45%;
+            min-height: 300px;
+        }
+
+        .components h3,
+        .invoice h3 {
+            text-align: center;
+            margin-bottom: 15px;
+        }
+
+        .item {
+            background: #f0f0f0;
+            margin: 5px 0;
+            padding: 10px;
+            border-radius: 6px;
+            cursor: grab;
+        }
+
+        .invoice .placeholder {
+            color: #aaa;
+            text-align: center;
+            margin-top: 100px;
+        }
+
+        .drag-over {
+            background: #e0ffe0;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Available components -->
+    <div class="components">
+        <h3>Components</h3>
+        <div class="item" draggable="true" data-type="text">Text Block</div>
+        <div class="item" draggable="true" data-type="date">Date</div>
+        <div class="item" draggable="true" data-type="table">Table</div>
+        <div class="item" draggable="true" data-type="signature">Signature</div>
+    </div>
+
+    <!-- Invoice builder area -->
+    <div class="invoice" id="invoice">
+        <h3>Invoice</h3>
+        <div class="placeholder">Drag items here</div>
+    </div>
+
+    <script src="invoice-builder.js"></script>
+</body>
+
+</html>
