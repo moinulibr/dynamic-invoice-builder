@@ -50,7 +50,8 @@ document.addEventListener("DOMContentLoaded", () => {
         updateGrandTotal();
     }
 
-    // --- Update Grand Total ---
+
+    //--- Update Grand Total ---
     function updateGrandTotal() {
         let sum = 0;
         document.querySelectorAll(".total").forEach(cell => {
