@@ -31,10 +31,10 @@ document.addEventListener("DOMContentLoaded", () => {
         const row = document.createElement("tr");
 
         row.innerHTML = `
-      <td>${name}</td>
-      <td>${price}</td>
-      <td><input type="number" value="1" min="1" class="qty"></td>
-      <td class="total">${price}</td>
+        <td>${name}</td>
+        <td>${price}</td>
+        <td><input type="number" value="1" min="1" class="qty"></td>
+        <td class="total">${price}</td>
     `;
 
         invoiceBody.appendChild(row);
