@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const invoiceBody = document.getElementById("invoice-body");
     const grandTotalCell = document.getElementById("grand-total");
 
-    // --- Drag start ---
+    //--- Drag start ---
     items.forEach(item => {
         item.addEventListener("dragstart", (e) => {
             e.dataTransfer.setData("name", item.dataset.name);
@@ -11,13 +11,13 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-    // --- Allow Drop ---
+    //--- Allow Drop ---
     const invoice = document.querySelector(".invoice");
     invoice.addEventListener("dragover", (e) => {
         e.preventDefault();
     });
 
-    // --- Drop Item ---
+    //--- Drop Item ---
     invoice.addEventListener("drop", (e) => {
         e.preventDefault();
         const name = e.dataTransfer.getData("name");
